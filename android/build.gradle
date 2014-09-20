@@ -12,6 +12,33 @@ android {
         }
 
         instrumentTest.setRoot('tests')
+
+        defaultConfig {
+            minSdkVersion 8
+            targetSdkVersion 19
+            versionCode 16
+            versionName "1.6"
+        }
+
+        signingConfigs {
+            release {
+                storeFile file("FIFA.jks")
+                storePassword "PUZZLEFIFA"
+                keyAlias "FIFA"
+                keyPassword "PUZZLEFIFA"
+            }
+        }
+        buildTypes {
+            release {
+                runProguard true
+                proguardFiles 'proguard-project.txt'
+                signingConfig signingConfigs.release
+            }
+            debug{
+                runProguard false
+                proguardFiles 'proguard-project.txt'
+            }
+        }
     }
 }
 // needed to add JNI shared libraries to APK when compiling on CLI
@@ -102,4 +129,5 @@ dependencies {
     compile files('../libs/YoumiSdk_v4.09_2014-06-16.jar')
     compile files('../libs/UPPayAssistEx.jar')
     compile files('../libs/umilocalpaysdk-V221.jar')
+    compile files('F:/ADWisdomHouse/Game/Puzzle/FIFA/libs/gdx-jnigen.jar')
 }

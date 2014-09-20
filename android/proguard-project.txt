@@ -18,3 +18,12 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-ignorewarnings
+-dontwarn net.youmi.android.**
+-keep class **.R$* {*;}
+-keep class net.youmi.android.** { *;}
+-keep class com.badlogic.** { *; }
+-keep class net.owan.android.** { *; }
+-keep class net.umipay.android.** { *; }
+-keep class com.UCMobile.** { *; }
+-keep class com.unionpay.** { *; }
