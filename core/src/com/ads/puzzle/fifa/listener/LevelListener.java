@@ -51,7 +51,6 @@ public class LevelListener extends GestureDetector.GestureAdapter {
         int level = (int)Math.abs(position/480);
         int tLevel = Settings.passGateNum / Answer.GATE_MAX;
         //if (level <= tLevel)
-
         {
             float v = Assets.WIDTH - 2 * Assets.LEVEL_IMAGE_OFF_SIZE;
             Rectangle bounds = new Rectangle(Assets.LEVEL_IMAGE_OFF_SIZE, (Assets.HEIGHT - Assets.WIDTH) / 2 + Assets.LEVEL_IMAGE_OFF_SIZE, v, v);

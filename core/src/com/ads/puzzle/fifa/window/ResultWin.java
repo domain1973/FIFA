@@ -2,6 +2,7 @@ package com.ads.puzzle.fifa.window;
 
 import com.ads.puzzle.fifa.Answer;
 import com.ads.puzzle.fifa.Assets;
+import com.ads.puzzle.fifa.Puzzle;
 import com.ads.puzzle.fifa.Settings;
 import com.ads.puzzle.fifa.controller.AreaController;
 import com.ads.puzzle.fifa.controller.ChallengeController;
@@ -9,6 +10,7 @@ import com.ads.puzzle.fifa.controller.IController;
 import com.ads.puzzle.fifa.controller.PieceController;
 import com.ads.puzzle.fifa.screen.GameScreen;
 import com.ads.puzzle.fifa.screen.GateScreen;
+import com.ads.puzzle.fifa.screen.LevelScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -21,6 +23,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -130,15 +134,19 @@ public class ResultWin extends BaseWin {
                 ((AreaController) group.findActor(IController.AREA_CTRL)).handler();
                 challengeCtrl.handler();
                 ((PieceController) group.findActor(IController.PIECE_CTRL)).handler();
-                int gateNum = challengeCtrl.getGateNum();
-                if (gateNum > Settings.passGateNum) {
-                    Settings.passGateNum = gateNum;
+                int nextGateNum = challengeCtrl.getGateNum();
+                if (nextGateNum > Settings.passGateNum) {
+                    Settings.passGateNum = nextGateNum;
                 }
-                if (Answer.gateStars.size() <= gateNum) {
+                if (Answer.gateStars.size() <= nextGateNum) {
                     Answer.gateStars.add(0);
-                } 
+                }
                 ResultWin.this.remove();
                 gameScreen.return2init();
+                if (Answer.isLasterSmallGate(nextGateNum)) {
+                    Puzzle puzzle = gameScreen.getPuzzle();
+                    puzzle.setScreen(new LevelScreen(puzzle, nextGateNum / 11));
+                }
                 super.touchUp(event, x, y, pointer, button);
             }
         });

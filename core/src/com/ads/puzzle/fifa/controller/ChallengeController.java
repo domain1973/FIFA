@@ -1,5 +1,6 @@
 package com.ads.puzzle.fifa.controller;
 
+import com.ads.puzzle.fifa.Answer;
 import com.ads.puzzle.fifa.actors.Challenge;
 
 import java.util.HashMap;
@@ -27,6 +28,9 @@ public class ChallengeController extends IController {
         map.get(gateNum).setDraw(false);
         gateNum++;
         if (!map.containsKey(gateNum)) {
+            if (Answer.isLasterSmallGate(gateNum)) {
+                level++;
+            }
             Challenge challenge = new Challenge(level, gateNum);
             map.put(gateNum, challenge);
             addActor(challenge);
