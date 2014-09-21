@@ -250,7 +250,7 @@ public class GameScreen extends BaseScreen {
                 area.setPieceId(pieceId);
             } else {
                 isUsedHelp = false;
-                areaId = -1;
+                areaId = 0;
                 executStarCount.shutdown();
                 multiplexer.addProcessor(gestureDetector); // 添加手势识别
                 multiplexer.addProcessor(getStage());
@@ -287,7 +287,11 @@ public class GameScreen extends BaseScreen {
         } else {
             starNum = 0;
         }
-        Answer.gateStars.set(challengeCtrl.getGateNum(), starNum);
+        if (Answer.gateStars.size() > challengeCtrl.getGateNum()) {
+            Answer.gateStars.set(challengeCtrl.getGateNum(), starNum);
+        } else {
+            Answer.gateStars.add(starNum);
+        }
     }
 
     private void handleGate() {
